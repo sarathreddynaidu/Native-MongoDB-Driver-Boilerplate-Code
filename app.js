@@ -2,12 +2,16 @@ const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
 const { Duplex } = require("stream");
 
+// connection url
 const url = "mongodb://localhost:27017";
 
+// database name
 const dbName = "fruitsDB";
 
+// create a new MongoClient
 const client = new MongoClient(url, {useUnifiedTopology: true});
 
+//Use connect method to connect to the server
 client.connect(function(err){
     assert.equal(null, err);
     console.log("Server successfully connected");
@@ -21,7 +25,9 @@ client.connect(function(err){
 
 
 const insertDocuments = function(db, callback){
+    //Get the documents collection
     const collection = db.collection("fruits");
+    //Insert some documents
     collection.insertMany([
         {
             name: "Apple",
@@ -46,7 +52,9 @@ const insertDocuments = function(db, callback){
 
 
 const findDocuments = function(db, callback){
+    //Get the documents collection
     const collection = db.collection("fruits");
+    //Find some documents
     collection.find({}).toArray(function(err, fruits){
         assert.equal(err, null);
         console.log("Found the following records");
